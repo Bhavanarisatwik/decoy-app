@@ -6,11 +6,19 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { DatabaseService } from './database.service';
+import { config } from 'dotenv';
+
+// Load environment variables
+config();
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+
+// Initialize database connection
+const databaseService = DatabaseService.getInstance();
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -53,13 +61,21 @@ app.use((req, res, next) => {
  */
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
   const port = process.env['PORT'] || 4000;
-  app.listen(port, (error) => {
-    if (error) {
-      throw error;
-    }
 
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
+  // Connect to database before starting server
+  databaseService.connect()
+    .then(() => {
+      app.listen(port, (error) => {
+        if (error) {
+          throw error;
+        }
+        console.log(`Node Express server listening on http://localhost:${port}`);
+      });
+    })
+    .catch((error) => {
+      console.error('Failed to connect to database:', error);
+      process.exit(1);
+    });
 }
 
 /**
