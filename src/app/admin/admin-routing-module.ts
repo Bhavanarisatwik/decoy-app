@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Login } from './login/login';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
     path: 'login',
-    component: Login
+    loadComponent: () => import('./login/login').then(m => m.Login)
+  },
+  {
+    path: 'rbac',
+    loadComponent: () => import('./rbac/rbac').then(m => m.Rbac)
   }
 ];
 
