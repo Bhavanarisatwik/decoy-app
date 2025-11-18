@@ -1,0 +1,36 @@
+{
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": false,
+    "markdown": true,
+    "typescript": true,
+    "javascript": true,
+    "html": true,
+    "css": true,
+    "scss": true,
+    "json": true
+  },
+  "github.copilot.advanced": {
+    "debug.overrideEngine": "gpt-5.1"
+  },
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggest.preview": true,
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.html": "html"
+  }
+}
